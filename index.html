@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>To-Do List</title>
+  <link rel="icon" href="to-do.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .input-fields {
+      display: flex;
+      justify-content: center;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+      padding: 10px;
+      border: 2px solid #000;
+      border-radius: 20px;
+      color: #000;
+      font-size: 16px;
+      margin-inline: 40px;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+
+
+    input[type="text"]:hover,
+    input[type="date"]:hover,
+    input[type="text"]:focus,
+    input[type="date"]:focus {
+      border-color: #ff0000;
+      background-color: #fff;
+      color: #000;
+    }
+
+    h1 {
+      color: hsl(63, 100%, 60%);
+      font-weight: bold;
+      font-size: 3rem;
+      display: flex;
+      /* flex-wrap: nowrap; */
+      justify-content: center;
+      border: white;
+      border-color: #f2f2f2;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    table,
+    th,
+    td {
+      border:solid black;
+      align-content: center;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      color: #fff;
+    }
+
+    th {
+      color:hsl(63, 100%, 60%);
+    }
+    body{
+      background: linear-gradient(106deg, #1d2adf, #89dce2);
+    }
+    
+    .add {
+      background-color: #063ffb;
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: #063ffb;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+
+    .add:hover,
+    .delete:hover {
+      background-color: #ff0f0f;
+    }
+
+    .pij {
+      font-size: 1.2rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+      h1 {
+      color: hsl(63, 100%, 60%);
+      font-weight: bold;
+      font-size: 10rem;
+    }
+    * {
+        margin: 0;
+        
+    }
+    input[type="text"],
+    input[type="date"] {
+      padding: 20px;
+      border: 2px solid #000;
+      border-radius: 20px;
+      color: #000;
+      font-size: 16px;
+      margin-inline: 40px;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+    .input-fields {
+      display: grid;
+      justify-content: center;
+    }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="body">
+  <h1><span id="element2"></span></h1>
+  <div class="input-fields">
+    <input type="text" placeholder="Task to be done.." class="jip">
+    <input type="date" class="pij">
+    <button class="add" onclick=addto()>Add</button>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Due Date</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody class="all"></tbody>
+  </div>
+</div>
+<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <script>
+    const todolist = [];
+    function addto() {
+      const input = document.querySelector('.jip')
+      let elmnt = input.value;
+      
+
+      const dued = document.querySelector('.pij')
+      let duedate = dued.value;
+      if(elmnt==''){
+        alert("please Enter the task!");
+      }else{
+      todolist.push({
+        name: elmnt,
+        dueDate: duedate
+      });
+      input.value = '';
+      input.dued = '';
+      final();
+    }
+  }
+    function final() {
+      let listhtml = [];
+      for (let i = 0; i < todolist.length; i++) {
+        const values = todolist[i];
+        const name = values.name;
+        const due = values.dueDate;
+        const lines =
+          `<tr><td>${name}</td>
+                <td>${due}</td>
+                <td><button class="delete" onclick="todolist.splice(${i}, 1);
+          final();">Delete</button></td></tr>`;
+        listhtml += lines;
+      }
+      document.querySelector('.all').innerHTML = listhtml;
+    }
+
+    
+  
+    
+   var typed = new Typed('#element2', {
+            strings: ['To-Do List'],
+            typeSpeed: 75,
+            loop: true
+        });
+
+
+  </script>
+</body>
+
+</html>
